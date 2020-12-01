@@ -1,0 +1,73 @@
+#!/bin/bash
+
+# Installing Docker
+sudo apt-get remove docker docker-engine docker.io containerd runc
+
+sudo apt-get update -y
+
+sudo apt-get -y install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+sudo apt-get update -y
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+
+# Installing Jenkins
+docker network create jenkins
+
+mkdir ~/jenkins
+
+cat << 'EOF' > ~/jenkins/dockerfile
+FROM jenkins/jenkins:2.249.3-slim
+USER root
+RUN apt-get update && apt-get install -y apt-transport-https \
+       ca-certificates curl gnupg2 \
+       software-properties-common
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+RUN apt-key fingerprint 0EBFCD88
+RUN add-apt-repository \
+       "deb [arch=amd64] https://download.docker.com/linux/debian \
+       $(lsb_release -cs) stable"
+RUN apt-get update && apt-get install -y docker-ce-cli
+USER jenkins
+RUN jenkins-plugin-cli --plugins blueocean:1.24.3
+EOF
+
+docker build -t node-jenkins:1.0 ~/jenkins/
+
+docker run \
+  --name jenkins-blueocean \
+  --rm \
+  --detach \
+  --network jenkins \
+  --env DOCKER_HOST=tcp://docker:2376 \
+  --env DOCKER_CERT_PATH=/certs/client \
+  --env DOCKER_TLS_VERIFY=1 \
+  --publish 8080:8080 \
+  --publish 50000:50000 \
+  --volume jenkins-data:/var/jenkins_home \
+  --volume jenkins-docker-certs:/certs/client:ro \
+  node-jenkins:1.0
+
+# Installing minikube kubectl
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_latest_amd64.deb
+sudo dpkg -i minikube_latest_amd64.deb
+
+sudo apt-get update && sudo apt-get upgrade -y
+sudo apt-get install -y kubectl
+
+## Testing minikube installation
+kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.4
+kubectl expose deployment hello-minikube --type=NodePort --port=8080
+kubectl port-forward service/hello-minikube 7080:8080
