@@ -17,7 +17,8 @@ https://learn.hashicorp.com/tutorials/terraform/install-cli
 
 # Jenkins Access
 Open you favorite browser, copy & paste the Control Plane Endpoint public IP address + port 8080.
-e.g: http://<control-plane-public-ip>:8080
+
+e.g: http://control-plane-public-ip:8080
 
 # nodejs-k8s
 
