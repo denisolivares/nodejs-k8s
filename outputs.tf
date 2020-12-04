@@ -1,11 +1,11 @@
-output "DEV_public_ip" {
+output "k8sControlPlane" {
   description = "List of public IPs assigned to the instances"
-  value       = [aws_instance.devNodeJS.public_ip]
+  value       = [aws_instance.k8sControlPlane.public_ip]
 }
 
-output "PROD_public_ip" {
+output "k8sEndPoint" {
   description = "List of public IPs assigned to the instances"
-  value       = [aws_instance.prodNodeJS.public_ip]
+  value       = [aws_instance.k8sEndPoint.public_ip]
 }
 
 /* output "ids" {

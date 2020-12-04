@@ -59,6 +59,14 @@ resource "aws_default_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+# k8s
+  ingress {
+    protocol  = 6
+    from_port = 7080
+    to_port   = 7080
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 # Kubernetes API server
   ingress {
     protocol  = 6
@@ -121,27 +129,27 @@ resource "aws_key_pair" "dos_key" {
   public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAotNqnL+73iXTMqI5hjVlzDN3pfccGiuHUaitr2yGspE1QdMknv5Aq8NBMoX7ZDvKyAznQgJ/sT9D+STGYtmtYAZ4OP2YJ98IjQJT0GyvgmweIW+RcQBOlNheDJ1wIRB048LSeRuhrIJ9mkXL6zYHYjI13rRZnh+YNraIZ86CPofJ6InOUhaSwLdNpufKnnmAxQpXpQCLkgdgzcmbXfm8HWRBxzuj0JT/2IbOnEefeHck8MjGMPpW9kV+QPMLOjvB3QFdIJ6hWfyBObRpscbfI/Oq3+bqUj2QpWxfaeJRUUEBcNK6/j6ljgarKzij4YakpPnlV7C6xgO+lHf6Df9ByQ== rsa-key-20201028"
 }
 
-resource "aws_instance" "devNodeJS" {
+resource "aws_instance" "k8sControlPlane" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
   key_name      = "dos_key"
   subnet_id     = aws_default_subnet.default_az1.id
-  user_data = file("./userdata/bootstrap")
+  user_data = file("./userdata/bootstrap-k8sControlPlane")
 
   tags = {
-    Name = "dev-NodeJS"
+    Name = "k8sControlPlane"
   }
 }
 
-resource "aws_instance" "prodNodeJS" {
+resource "aws_instance" "k8sEndPoint" {
   ami           = data.aws_ami.ubuntu.id
   instance_type = "t3.micro"
   key_name = "dos_key"
   subnet_id     = aws_default_subnet.default_az1.id
-  user_data = file("./userdata/bootstrap")
+  user_data = file("./userdata/bootstrap-k8sEndpoint")
 
 
   tags = {
-    Name = "prod-NodeJS"
+    Name = "k8sEndPoint"
   }
 }
