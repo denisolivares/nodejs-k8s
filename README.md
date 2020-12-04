@@ -1,3 +1,24 @@
+# Running the project
+
+You'll need:
+
+AWS Credentials configured
+
+https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html
+
+Terraform installed
+https://learn.hashicorp.com/tutorials/terraform/install-cli
+
+- 1 - Clone this repo
+- 2 - Run ```terraform init```
+- 3 - Then run ```terraform plan``` and check the results
+- 4 - run ```terraform apply```
+- 5 - terraform will output the Control Plane Endopoint IP
+
+# Jenkins Access
+Open you favorite browser, copy & paste the Control Plane Endpoint public IP address + port 8080.
+e.g: http://<control-plane-public-ip>:8080
+
 # nodejs-k8s
 
 Plan
