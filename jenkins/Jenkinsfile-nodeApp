@@ -6,6 +6,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                sh "ping 172.31.86.68 -c 4"
             }
         }
         stage('Test') {

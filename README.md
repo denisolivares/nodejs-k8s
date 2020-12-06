@@ -19,7 +19,7 @@ https://learn.hashicorp.com/tutorials/terraform/install-cli
 # Jenkins Access
 Open you favorite browser, copy & paste the Control Plane Endpoint public IP address + port 8080.
 
-e.g: http://control-plane-public-ip:8080
+e.g: http://k8sdevPublicIP:8080
 
 # nodejs-k8s
 
@@ -29,11 +29,12 @@ Plan
    - [x] Install docker
    - [ ] Install k8s
    - [x] Create Jenkins container/pod
-   - [ ] Setup Jenkins
-- [ ] Configure Jenkins pipeline
+   - [x] Setup Jenkins
+- [v] Configure Jenkins pipeline
 - [ ] Create app container
    - [ ] App consulting DB
-- [ ] Install Helm
+- [x] Install Helm
+   - [ ] Configure Helm
 - [ ] Setup DEV environment
 - [ ] Setup PROD environment
 
