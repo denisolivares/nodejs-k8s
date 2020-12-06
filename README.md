@@ -1,6 +1,6 @@
 # Running the project
 
-You'll need:
+## First:
 
 AWS Credentials configured
 
@@ -9,6 +9,8 @@ https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.ht
 Terraform installed
 
 https://learn.hashicorp.com/tutorials/terraform/install-cli
+
+## Then:
 
 - 1 - Clone this repo
 - 2 - Run ```terraform init```
@@ -30,7 +32,7 @@ Plan
    - [ ] Install k8s
    - [x] Create Jenkins container/pod
    - [x] Setup Jenkins
-- [v] Configure Jenkins pipeline
+- [ ] Configure Jenkins pipeline
 - [ ] Create app container
    - [ ] App consulting DB
 - [x] Install Helm
