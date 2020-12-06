@@ -1,12 +1,12 @@
-output "k8sControlPlane" {
+output "k8sdev" {
   description = "List of public IPs assigned to the instances"
-  value       = [aws_instance.k8sControlPlane.public_ip]
+  value       = [aws_instance.k8sdev.public_ip]
 }
 
-output "k8sEndPoint" {
+/* output "k8sprod" {
   description = "List of public IPs assigned to the instances"
-  value       = [aws_instance.k8sEndPoint.public_ip]
-}
+  value       = [aws_instance.k8sprod.public_ip]
+} */
 
 /* output "ids" {
   description = "List of IDs of instances"

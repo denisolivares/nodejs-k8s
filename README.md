@@ -7,6 +7,7 @@ AWS Credentials configured
 https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/setup-credentials.html
 
 Terraform installed
+
 https://learn.hashicorp.com/tutorials/terraform/install-cli
 
 - 1 - Clone this repo
@@ -38,7 +39,7 @@ Plan
 
 ## Main references
 
-For references reading consider **ubuntu 20.04** OS.
+For references reading assume **ubuntu 20.04** as OS.
 
 https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/
 https://docs.docker.com/engine/install/
