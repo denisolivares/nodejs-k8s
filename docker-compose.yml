@@ -1,0 +1,18 @@
+version: '3'
+services:
+  jenkins:
+    # will build ./jenkins/Dockerfile
+    build: ./jenkins
+    ports:
+     - "8080:8080"
+     - "50000:50000"        
+  prod:
+    # will build ./app-prod/Dockerfile
+    build: ./app-prod
+    ports:
+     - "8081:3000"
+  teste:
+    # will build ./app-dev/Dockerfile
+    build: ./app-dev
+    ports:
+     - "8082:3000"

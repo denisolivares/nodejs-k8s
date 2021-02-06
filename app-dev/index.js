@@ -1,4 +1,4 @@
-const http = require("../app-prod/node_modules/http");
+const http = require("http");
 
 http
   .createServer(function(request, response) {
