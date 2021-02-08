@@ -1,0 +1,41 @@
+jenkins:
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+       - id: ${JENKINS_ADMIN_ID}
+         password: ${JENKINS_ADMIN_PASSWORD}
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "Overall/Administer:admin"
+        - "Overall/Read:authenticated"
+  remotingSecurity:
+    enabled: true
+security:
+  queueItemAuthenticator:
+    authenticators:
+    - global:
+        strategy: triggeringUsersAuthorizationStrategy
+unclassified:
+  location:
+    url: http://localhost:8080/
+jobs:
+  - script: >
+      job('example') {
+          steps {
+              shell('echo Hello World!')
+          }
+      }
+  - script: >
+      job('testJob2') {
+          scm {
+              git('git://github.com/quidryan/aws-sdk-test.git')
+          }
+          triggers {
+              scm('H/15 * * * *')
+          }
+          steps {
+              maven('-e clean test')
+          }
+      }
